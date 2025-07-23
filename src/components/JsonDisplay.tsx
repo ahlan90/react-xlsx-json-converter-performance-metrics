@@ -8,7 +8,19 @@ interface JsonDisplayProps {
 const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
     const [showRawJson, setShowRawJson] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 50;
+    const itemsPerPage = 12; // Reduzido para melhor visualização dos cards
+
+    const handleSave = (index: number, item: ExcelData) => {
+        console.log('Saving PDV:', index, item);
+        // Aqui você pode implementar a lógica de salvamento
+        alert(`PDV ${index + 1} saved successfully!`);
+    };
+
+    const handleValidate = (index: number, item: ExcelData) => {
+        console.log('Validating PDV:', index, item);
+        // Aqui você pode implementar a lógica de validação
+        alert(`PDV ${index + 1} validated successfully!`);
+    };
 
     if (data.length === 0) {
         return (
@@ -85,7 +97,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                             fontWeight: 'bold'
                         }}
                     >
-                        {showRawJson ? '📋 Show Table' : '📄 Show JSON'}
+                        {showRawJson ? '🗃️ Show Cards' : '📄 Show JSON'}
                     </button>
                     
                     <button
@@ -123,69 +135,152 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                     </pre>
                 ) : (
                     <>
-                        <div style={{ overflowX: 'auto' }}>
-                            <table style={{
-                                width: '100%',
-                                borderCollapse: 'collapse',
-                                fontSize: '14px'
-                            }}>
-                                <thead>
-                                    <tr style={{ backgroundColor: '#e9ecef' }}>
-                                        <th style={{
-                                            padding: '12px',
-                                            textAlign: 'left',
-                                            borderBottom: '2px solid #dee2e6',
-                                            color: '#495057',
-                                            fontWeight: 'bold'
+                        {/* Cards Grid Layout */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
+                            gap: '20px',
+                            marginBottom: '20px'
+                        }}>
+                            {currentData.map((item, index) => {
+                                const globalIndex = startIndex + index;
+                                const columns = Object.keys(item);
+                                
+                                return (
+                                    <div 
+                                        key={globalIndex} 
+                                        style={{
+                                            backgroundColor: '#ffffff',
+                                            border: '1px solid #e9ecef',
+                                            borderRadius: '12px',
+                                            padding: '20px',
+                                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                                            position: 'relative',
+                                            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.transform = 'translateY(-2px)';
+                                            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = 'translateY(0)';
+                                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                                        }}
+                                    >
+                                        {/* Header do Card com ID e Botões */}
+                                        <div style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            marginBottom: '15px',
+                                            paddingBottom: '10px',
+                                            borderBottom: '2px solid #e9ecef'
                                         }}>
-                                            #
-                                        </th>
-                                        {data.length > 0 && Object.keys(data[0]).map((column) => (
-                                            <th key={column} style={{
-                                                padding: '12px',
-                                                textAlign: 'left',
-                                                borderBottom: '2px solid #dee2e6',
-                                                color: '#495057',
-                                                fontWeight: 'bold'
+                                            <div style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '8px'
                                             }}>
-                                                {column}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {currentData.map((item, index) => (
-                                        <tr 
-                                            key={startIndex + index} 
-                                            style={{
-                                                borderBottom: '1px solid #e9ecef'
-                                            }}
-                                            onMouseEnter={(e) => {
-                                                e.currentTarget.style.backgroundColor = '#f8f9fa';
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                e.currentTarget.style.backgroundColor = 'transparent';
-                                            }}
-                                        >
-                                            <td style={{
-                                                padding: '12px',
-                                                color: '#6c757d',
-                                                fontWeight: 'bold'
-                                            }}>
-                                                {startIndex + index + 1}
-                                            </td>
-                                            {Object.keys(item).map((column) => (
-                                                <td key={column} style={{
-                                                    padding: '12px',
-                                                    color: '#495057'
+                                                <span style={{ fontSize: '20px' }}>🏪</span>
+                                                <h3 style={{
+                                                    margin: 0,
+                                                    color: '#495057',
+                                                    fontSize: '18px',
+                                                    fontWeight: 'bold'
                                                 }}>
-                                                    {item[column] || '-'}
-                                                </td>
+                                                    PDV #{globalIndex + 1}
+                                                </h3>
+                                            </div>
+                                            
+                                            {/* Botões Salvar e Validar */}
+                                            <div style={{ display: 'flex', gap: '8px' }}>
+                                                <button
+                                                    onClick={() => handleSave(globalIndex, item)}
+                                                    style={{
+                                                        padding: '6px 12px',
+                                                        backgroundColor: '#28a745',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        borderRadius: '6px',
+                                                        cursor: 'pointer',
+                                                        fontSize: '12px',
+                                                        fontWeight: 'bold',
+                                                        transition: 'background-color 0.2s ease'
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.currentTarget.style.backgroundColor = '#218838';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.currentTarget.style.backgroundColor = '#28a745';
+                                                    }}
+                                                >
+                                                    💾 Save
+                                                </button>
+                                                <button
+                                                    onClick={() => handleValidate(globalIndex, item)}
+                                                    style={{
+                                                        padding: '6px 12px',
+                                                        backgroundColor: '#007bff',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        borderRadius: '6px',
+                                                        cursor: 'pointer',
+                                                        fontSize: '12px',
+                                                        fontWeight: 'bold',
+                                                        transition: 'background-color 0.2s ease'
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.currentTarget.style.backgroundColor = '#0056b3';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.currentTarget.style.backgroundColor = '#007bff';
+                                                    }}
+                                                >
+                                                    ✅ Validate
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {/* Grid de Informações */}
+                                        <div style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                                            gap: '12px'
+                                        }}>
+                                            {columns.map((column) => (
+                                                <div 
+                                                    key={column}
+                                                    style={{
+                                                        padding: '8px',
+                                                        backgroundColor: '#f8f9fa',
+                                                        borderRadius: '6px',
+                                                        border: '1px solid #e9ecef'
+                                                    }}
+                                                >
+                                                    <div style={{
+                                                        fontSize: '11px',
+                                                        fontWeight: 'bold',
+                                                        color: '#6c757d',
+                                                        marginBottom: '4px',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.5px'
+                                                    }}>
+                                                        {column}
+                                                    </div>
+                                                    <div style={{
+                                                        fontSize: '14px',
+                                                        color: '#495057',
+                                                        fontWeight: '500',
+                                                        wordBreak: 'break-word'
+                                                    }}>
+                                                        {item[column] || '-'}
+                                                    </div>
+                                                </div>
                                             ))}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
 
                         {totalPages > 1 && (
