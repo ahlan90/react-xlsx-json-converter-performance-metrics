@@ -2,12 +2,15 @@
   "name": "excel-to-json-app",
   "version": "1.0.0",
   "description": "A React application to upload an XLSX file and convert its rows to JSON format.",
+  "homepage": "https://ahlan90.github.io/react-xlsx-json-converter-performance-metrics",
   "main": "src/index.tsx",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "react": "^17.0.2",
@@ -18,9 +21,9 @@
   "devDependencies": {
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.2",
+    "gh-pages": "^6.3.0",
     "typescript": "^4.1.3"
   },
-  "homepage": ".",
   "license": "MIT",
   "browserslist": {
     "production": [
