@@ -38,7 +38,7 @@ export const usePerformanceMonitor = () => {
             memoryUsagePercent: (startMemory / totalMemory) * 100
         }));
 
-        // Monitora CPU através de operações matemáticas intensivas e tempo de execução
+        // Monitors CPU through intensive mathematical operations and execution time
         let cpuMonitoringInterval: NodeJS.Timeout;
         let operationCount = 0;
         
@@ -46,7 +46,7 @@ export const usePerformanceMonitor = () => {
             cpuMonitoringInterval = setInterval(() => {
                 const cpuStart = performance.now();
                 
-                // Operação matemática intensiva para simular carga de CPU
+                // Intensive mathematical operation to simulate CPU load
                 let result = 0;
                 const iterations = 50000;
                 for (let i = 0; i < iterations; i++) {
@@ -57,12 +57,12 @@ export const usePerformanceMonitor = () => {
                 const cpuTime = cpuEnd - cpuStart;
                 operationCount++;
                 
-                // Calcula uso de CPU baseado no tempo de operação e número de operações
-                const baseCpuTime = 2; // tempo base esperado em ms
+                // Calculates CPU usage based on operation time and number of operations
+                const baseCpuTime = 2; // expected base time in ms
                 const cpuUsagePercent = Math.min((cpuTime / baseCpuTime) * 100, 100);
-                const cpuUsageValue = cpuTime * operationCount; // valor numérico representativo
+                const cpuUsageValue = cpuTime * operationCount; // representative numerical value
                 
-                // Pega memória atual
+                // Gets current memory
                 const currentMemoryBytes = (performance as any).memory?.usedJSHeapSize || 0;
                 const currentMemoryMB = currentMemoryBytes / 1024 / 1024;
                 const currentMemoryPercent = (currentMemoryBytes / totalMemory) * 100;
@@ -102,7 +102,7 @@ export const usePerformanceMonitor = () => {
         };
     }, []);
 
-    // Monitora memória em tempo real durante o processamento
+    // Monitors memory in real-time during processing
     useEffect(() => {
         if (!performanceData.isProcessing) return;
 

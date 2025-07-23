@@ -45,7 +45,7 @@ const App: React.FC = () => {
                     fontSize: '1.1rem',
                     margin: '10px 0 0 0'
                 }}>
-                    Converta arquivos Excel em JSON com monitoramento de performance em tempo real
+                    Convert Excel files to JSON with real-time performance monitoring
                 </p>
             </div>
             

@@ -20,9 +20,9 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                 border: '2px dashed #dee2e6'
             }}>
                 <span style={{ fontSize: '48px', display: 'block', marginBottom: '15px' }}>📄</span>
-                <h3 style={{ color: '#6c757d', margin: 0 }}>Nenhum dado para exibir</h3>
+                <h3 style={{ color: '#6c757d', margin: 0 }}>No data to display</h3>
                 <p style={{ color: '#9ba2ab', margin: '5px 0 0 0' }}>
-                    Faça upload de um arquivo Excel para ver os dados aqui
+                    Upload an Excel file to see the data here
                 </p>
             </div>
         );
@@ -39,7 +39,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'dados_convertidos.json';
+        a.download = 'converted_data.json';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -67,7 +67,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ fontSize: '20px' }}>📊</span>
                     <h2 style={{ margin: 0, color: '#495057' }}>
-                        Dados Convertidos ({data.length} registros)
+                        Converted Data ({data.length} records)
                     </h2>
                 </div>
                 
@@ -85,7 +85,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                             fontWeight: 'bold'
                         }}
                     >
-                        {showRawJson ? '📋 Mostrar Tabela' : '📄 Mostrar JSON'}
+                        {showRawJson ? '📋 Show Table' : '📄 Show JSON'}
                     </button>
                     
                     <button
@@ -208,7 +208,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                                         cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
                                     }}
                                 >
-                                    ← Anterior
+                                    ← Previous
                                 </button>
                                 
                                 <span style={{
@@ -217,7 +217,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                                     borderRadius: '6px',
                                     color: '#495057'
                                 }}>
-                                    Página {currentPage} de {totalPages}
+                                    Page {currentPage} of {totalPages}
                                 </span>
                                 
                                 <button
@@ -232,7 +232,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data }) => {
                                         cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
                                     }}
                                 >
-                                    Próxima →
+                                    Next →
                                 </button>
                             </div>
                         )}

@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 
 export interface ExcelData {
-    [key: string]: any; // Permite qualquer coluna com qualquer tipo de valor
+    [key: string]: any; // Allows any column with any type of value
 }
 
 export const parseExcelFile = (file: File): Promise<ExcelData[]> => {
@@ -14,8 +14,8 @@ export const parseExcelFile = (file: File): Promise<ExcelData[]> => {
                 const workbook = XLSX.read(data, { type: 'array' });
                 const worksheet = workbook.Sheets[workbook.SheetNames[0]];
                 const jsonData: ExcelData[] = XLSX.utils.sheet_to_json(worksheet, { 
-                    // Remove header e range para ler todas as colunas automaticamente
-                    defval: '' // Define valor padrão para células vazias
+                    // Remove header and range to read all columns automatically
+                    defval: '' // Sets default value for empty cells
                 });
                 resolve(jsonData);
             } catch (error) {
@@ -24,7 +24,7 @@ export const parseExcelFile = (file: File): Promise<ExcelData[]> => {
         };
         
         reader.onerror = () => {
-            reject(new Error('Erro ao ler o arquivo'));
+            reject(new Error('Error reading file'));
         };
         
         reader.readAsArrayBuffer(file);
@@ -33,6 +33,6 @@ export const parseExcelFile = (file: File): Promise<ExcelData[]> => {
 
 export const validateExcelData = (data: ExcelData[]): boolean => {
     return data.length > 0 && data.every(row => 
-        Object.keys(row).length > 0 // Verifica se cada linha tem pelo menos uma coluna
+        Object.keys(row).length > 0 // Checks if each row has at least one column
     );
 };

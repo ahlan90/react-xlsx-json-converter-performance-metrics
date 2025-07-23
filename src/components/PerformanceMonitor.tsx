@@ -58,7 +58,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 paddingBottom: '10px'
             }}>
                 <span style={{ fontSize: '24px', marginRight: '10px' }}>📊</span>
-                <h3 style={{ margin: 0, color: '#495057' }}>Métricas de Performance em Tempo Real</h3>
+                <h3 style={{ margin: 0, color: '#495057' }}>Real-Time Performance Metrics</h3>
                 {data.isProcessing && (
                     <span style={{
                         marginLeft: 'auto',
@@ -70,7 +70,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         fontWeight: 'bold',
                         animation: 'pulse 1.5s infinite'
                     }}>
-                        PROCESSANDO...
+                        PROCESSING...
                     </span>
                 )}
             </div>
@@ -85,7 +85,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                         <span style={{ fontSize: '16px', marginRight: '8px' }}>🔄</span>
-                        <strong style={{ color: '#6c757d' }}>Uso de CPU</strong>
+                        <strong style={{ color: '#6c757d' }}>CPU Usage</strong>
                     </div>
                     <div style={{ 
                         fontSize: '22px', 
@@ -101,8 +101,8 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         marginBottom: '8px'
                     }}>
                         {data.isProcessing 
-                            ? `Operações: ${(data.cpuUsage || 0).toFixed(0)} | Tempo: ${(data.cpuUsage / 1000 || 0).toFixed(2)}s` 
-                            : 'CPU inativa'
+                            ? `Operations: ${(data.cpuUsage || 0).toFixed(0)} | Time: ${(data.cpuUsage / 1000 || 0).toFixed(2)}s` 
+                            : 'CPU idle'
                         }
                     </div>
                     <div style={{
@@ -130,7 +130,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                         <span style={{ fontSize: '16px', marginRight: '8px' }}>💾</span>
-                        <strong style={{ color: '#6c757d' }}>Uso de Memória</strong>
+                        <strong style={{ color: '#6c757d' }}>Memory Usage</strong>
                     </div>
                     <div style={{ 
                         fontSize: '22px', 
@@ -145,7 +145,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         color: '#6c757d',
                         marginBottom: '8px'
                     }}>
-                        {formatBytes(data.memoryUsageBytes || 0)} | {(data.memoryUsagePercent || 0).toFixed(1)}% do heap
+                        {formatBytes(data.memoryUsageBytes || 0)} | {(data.memoryUsagePercent || 0).toFixed(1)}% of heap
                     </div>
                     <div style={{
                         width: '100%',
@@ -172,7 +172,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                         <span style={{ fontSize: '16px', marginRight: '8px' }}>⏱️</span>
-                        <strong style={{ color: '#6c757d' }}>Tempo de Processamento</strong>
+                        <strong style={{ color: '#6c757d' }}>Processing Time</strong>
                     </div>
                     <div style={{ 
                         fontSize: '22px', 
@@ -180,15 +180,15 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         color: data.isProcessing ? '#ff6b35' : '#28a745',
                         marginBottom: '4px'
                     }}>
-                        {data.isProcessing ? 'Processando...' : `${data.processingTime.toFixed(0)} ms`}
+                        {data.isProcessing ? 'Processing...' : `${data.processingTime.toFixed(0)} ms`}
                     </div>
                     <div style={{ 
                         fontSize: '11px', 
                         color: '#6c757d'
                     }}>
                         {data.isProcessing 
-                            ? 'Tempo decorrido em processamento'
-                            : `${(data.processingTime / 1000).toFixed(2)} segundos total`
+                            ? 'Elapsed processing time'
+                            : `${(data.processingTime / 1000).toFixed(2)} seconds total`
                         }
                     </div>
                 </div>
@@ -202,7 +202,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                         <span style={{ fontSize: '16px', marginRight: '8px' }}>📁</span>
-                        <strong style={{ color: '#6c757d' }}>Tamanho do Arquivo</strong>
+                        <strong style={{ color: '#6c757d' }}>File Size</strong>
                     </div>
                     <div style={{ 
                         fontSize: '22px', 
@@ -216,7 +216,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         fontSize: '11px', 
                         color: '#6c757d'
                     }}>
-                        {data.fileSize > 0 ? `${data.fileSize.toLocaleString()} bytes` : 'Nenhum arquivo'}
+                        {data.fileSize > 0 ? `${data.fileSize.toLocaleString()} bytes` : 'No file'}
                     </div>
                 </div>
 
@@ -229,7 +229,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                         <span style={{ fontSize: '16px', marginRight: '8px' }}>📄</span>
-                        <strong style={{ color: '#6c757d' }}>Registros Processados</strong>
+                        <strong style={{ color: '#6c757d' }}>Processed Records</strong>
                     </div>
                     <div style={{ 
                         fontSize: '22px', 
@@ -243,7 +243,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         fontSize: '11px', 
                         color: '#6c757d'
                     }}>
-                        {recordCount > 0 ? `${recordCount} linhas convertidas` : 'Aguardando processamento'}
+                        {recordCount > 0 ? `${recordCount} rows converted` : 'Waiting for processing'}
                     </div>
                 </div>
 
@@ -265,8 +265,8 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         marginBottom: '4px'
                     }}>
                         {data.processingTime > 0 && recordCount > 0 
-                            ? `${(recordCount / (data.processingTime / 1000)).toFixed(0)} registros/segundo`
-                            : 'Aguardando processamento...'
+                            ? `${(recordCount / (data.processingTime / 1000)).toFixed(0)} records/second`
+                            : 'Waiting for processing...'
                         }
                     </div>
                     <div style={{ 
@@ -276,7 +276,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         gap: '20px',
                         flexWrap: 'wrap'
                     }}>
-                        <span>Eficiência: {data.processingTime > 0 ? `${(recordCount / data.processingTime * 1000).toFixed(1)} reg/ms` : 'N/A'}</span>
+                        <span>Efficiency: {data.processingTime > 0 ? `${(recordCount / data.processingTime * 1000).toFixed(1)} rec/ms` : 'N/A'}</span>
                         <span>Throughput: {data.fileSize > 0 && data.processingTime > 0 ? `${(data.fileSize / 1024 / (data.processingTime / 1000)).toFixed(0)} KB/s` : 'N/A'}</span>
                     </div>
                 </div>

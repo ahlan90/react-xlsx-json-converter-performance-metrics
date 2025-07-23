@@ -25,7 +25,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded, startMonitoring }
                 monitor.stop();
                 setIsUploading(false);
             } catch (error) {
-                console.error('Erro ao processar arquivo:', error);
+                console.error('Error processing file:', error);
                 monitor.stop();
                 setIsUploading(false);
             }
@@ -44,9 +44,9 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded, startMonitoring }
         }}>
             <div style={{ marginBottom: '15px' }}>
                 <span style={{ fontSize: '48px', display: 'block', marginBottom: '10px' }}>📁</span>
-                <h3 style={{ margin: 0, color: '#495057' }}>Upload do Arquivo Excel</h3>
+                <h3 style={{ margin: 0, color: '#495057' }}>Excel File Upload</h3>
                 <p style={{ color: '#6c757d', margin: '5px 0 0 0' }}>
-                    Selecione um arquivo .xlsx para converter todas as colunas para JSON
+                    Select an .xlsx file to convert all columns to JSON
                 </p>
             </div>
             
@@ -76,7 +76,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded, startMonitoring }
                     borderRadius: '8px',
                     color: '#155724'
                 }}>
-                    <strong>✅ Arquivo carregado:</strong> {fileName}
+                    <strong>✅ File loaded:</strong> {fileName}
                 </div>
             )}
             
@@ -86,7 +86,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded, startMonitoring }
                     color: '#ff6b35',
                     fontWeight: 'bold'
                 }}>
-                    🔄 Processando arquivo...
+                    🔄 Processing file...
                 </div>
             )}
         </div>
